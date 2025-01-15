@@ -23,9 +23,7 @@ connectCloudinary()
 
 //middleware
 app.use(express.json())
-app.use(cors(
-     origins '*'
-))
+app.use(cors())
 
 
 //texting api
