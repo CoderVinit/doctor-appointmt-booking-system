@@ -9,7 +9,6 @@ const DoctorDashboard = () => {
   const { doctorDashboard, dasData, dtoken,cancelAppointment,completeAppointment } = useContext(DoctorContext);
   const { slotDateFormate, currency } = useContext(AppContext);
 
-  console.log(dasData);
   useEffect(() => {
     if (dtoken) {
       doctorDashboard();
