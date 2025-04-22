@@ -13,7 +13,7 @@ const changeAvailabiliy = async (req, res) => {
     res.json({ message: "Availability changed successfully", success: true });
   } catch (error) {
     console.log(error);
-    res.json({ message: error.message, success: false });
+    return res.json({ message: error.message, success: false });
   }
 };
 
@@ -23,7 +23,7 @@ const getDoctorList = async (req, res) => {
     res.json({ success: true, doctors });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 
@@ -44,11 +44,11 @@ const docLogin = async (req, res) => {
       const token = jwt.sign({ id: doctor._id }, process.env.JWT_SECRET);
       res.json({ success: true, token });
     } else {
-      res.json({ success: false, message: "Incorrect Password" });
+      return res.json({ success: false, message: "Incorrect Password" });
     }
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 
@@ -62,7 +62,7 @@ const appointmentsDoctor = async (req, res) => {
     res.json({ success: true, appointments });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 
@@ -78,13 +78,13 @@ const markCompleted = async (req, res) => {
       await appointmentModel.findByIdAndUpdate(appointmentId, {
         isCompleted: true,
       });
-      return res.json({ success: true, message: "Appointment Completed" });
+      res.json({ success: true, message: "Appointment Completed" });
     } else {
       return res.json({ success: false, message: "Mark Failed" });
     }
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 // api to cancel appointment doctor panel
@@ -99,13 +99,13 @@ const cancelAppointment = async (req, res) => {
       await appointmentModel.findByIdAndUpdate(appointmentId, {
         cancelled: true,
       });
-      return res.json({ success: true, message: "Appointment cancelled" });
+      res.json({ success: true, message: "Appointment cancelled" });
     } else {
       return res.json({ success: false, message: "Cancelled Failed" });
     }
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 
@@ -143,7 +143,7 @@ const doctorDashboard = async (req, res) => {
     res.json({ success: true, dataDas });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 
@@ -156,7 +156,7 @@ const doctorProfile = async (req, res) => {
     res.json({ success: true, doctor });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 
@@ -175,7 +175,7 @@ const updateProfile = async (req, res) => {
     res.json({ success: true, message: "Profile Updated" });
   } catch (error) {
     console.log(error);
-    res.json({ success: false, message: error.message });
+    return res.json({ success: false, message: error.message });
   }
 };
 

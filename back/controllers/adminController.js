@@ -49,7 +49,7 @@ const addDoctor = async (req, res) => {
         const newDoctor = new doctorModel(doctorData);
         await newDoctor.save();
 
-        return res.status(200).json({success:true, message:"Doctor added successfully"})
+        res.status(200).json({success:true, message:"Doctor added successfully"})
         
 
     } catch (error) {
@@ -63,14 +63,13 @@ const addDoctor = async (req, res) => {
 const adminLogin = (req,res)=>{
     try {
         const {email,password} = req.body;
-        console.log(email,password)
 
         if(email === process.env.ADMIN_EMAIL && password === process.env.ADMIN_PASSWORD){
             const token = jwt.sign(email+password,process.env.JWT_SECRET);
             res.json({success:true, message:'Login successful', token})
         } 
         else{
-            res.json({success:false,message:'Invalid Credentials'});
+            return res.json({success:false,message:'Invalid Credentials'});
         }
         
     } catch (error) {
@@ -89,7 +88,7 @@ const getAllDoctors = async(req,res)=>{
 
     } catch (error) {
         console.log(error)
-        res.json({message:error.message,success:false})   
+        return res.json({message:error.message,success:false})   
     }
 }
 
@@ -101,7 +100,7 @@ const appointmentAdmin = async(req,res)=>{
         res.json({success:true,appointments})
     } catch (error) {
         console.log(error)
-        res.json({message:error.message,success:false}) 
+        return res.json({message:error.message,success:false}) 
     }
 }
 
@@ -126,7 +125,7 @@ const cancelAppointment = async(req, res)=>{
         res.json({success:true, message:"Appointment Cancelled"})
     } catch (error) {
         console.log(error)
-        res.json({success:false, message:error.message})
+        return res.json({success:false, message:error.message})
     }
 
 }
@@ -149,7 +148,7 @@ const adminDashboard = async(req,res)=>{
         res.json({success:true, dasData})
     } catch (error) {
         console.log(error)
-        res.json({success:false, message:error.message})
+        return res.json({success:false, message:error.message})
     }
 }
 

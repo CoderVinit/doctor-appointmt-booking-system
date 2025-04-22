@@ -38,7 +38,7 @@ const Register = async(req, res) => {
 
   } catch (error) {
     console.log(error)
-    res.json({message:error.message,success:false})
+    return res.json({message:error.message,success:false})
   }
 };
 
@@ -58,12 +58,12 @@ const Login = async(req,res)=>{
             const token = jwt.sign({id:user._id},process.env.JWT_SECRET);
             res.json({success:true,token,message:"login Successfull"})
         }else{
-            res.json({message:"Password is worng",success:false});
+            return res.json({message:"Password is worng",success:false});
         }
 
     } catch (error) {
         console.log(error)
-        res.json({message:error.message,success:false})
+        return res.json({message:error.message,success:false})
     }
 }
 
@@ -75,7 +75,7 @@ const userProfile = async(req,res)=>{
         res.json({success:true,userData})
     } catch (error) {
         console.log(error)
-        res.json({message:error.message,success:false})
+       return res.json({message:error.message,success:false})
     }
 }
 
@@ -101,7 +101,7 @@ const updateUserProfile = async(req,res)=>{
 
     } catch (error) {
         console.log(error)
-        res.json({message:error.message,success:false})
+       return res.json({message:error.message,success:false})
     }
 }
 
@@ -155,7 +155,7 @@ const bookAppointment = async(req,res)=>{
 
     } catch (error) {
         console.log(error)
-        res.json({message:error.message,success:false})
+        return res.json({message:error.message,success:false})
     }
 
 }
@@ -169,7 +169,7 @@ const appointmentList = async(req,res)=>{
         res.json({success:true,appointment})
     } catch (error) {
         console.log(error)
-        res.json({success:false,message:error.message})
+        return res.json({success:false,message:error.message})
     }
 
 }
@@ -200,7 +200,7 @@ const cancelAppointment = async(req, res)=>{
         res.json({success:true, message:"Appointment Cancelled"})
     } catch (error) {
         console.log(error)
-        res.json({success:false, message:error.message})
+        return res.json({success:false, message:error.message})
     }
 
 }
@@ -233,7 +233,7 @@ const paymentRazorPay = async(req,res)=>{
 
     } catch (error) {
         console.log(error)
-        res.json({success:false,message:error.message})
+        return res.json({success:false,message:error.message})
     }
 }
 
@@ -247,11 +247,11 @@ const varifyRazorpay = async(req,res)=>{
             res.json({success:true,message:"Payment Successfull"})
         }
         else{
-            res.json({success:false,message:"Payment Failed"})
+            return res.json({success:false,message:"Payment Failed"})
         }
     } catch (error) {
         console.log(error)
-        res.json({success:false,message:error.message})
+        return res.json({success:false,message:error.message})
     }
 
 }
